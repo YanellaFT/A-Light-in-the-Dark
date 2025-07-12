@@ -20,12 +20,11 @@ function setup() {
   light.diameter = 50;
   light.color = "white";
   light.physics = "kinematic";
-  light.layer = "1";
+  light.layer = "0";
 }
 
 /* DRAW LOOP REPEATS */
 function draw() {
-
 }
 
 /* FUNCTIONS */
