@@ -21,7 +21,7 @@ function setup() {
     player.physics = "k";
     player.layer = "2";
 
-    light = new Sprite(-20,-20);
+    light = new Sprite(-200,-20);
     light.diameter = lightDiameter;
     light.color = "white";
     light.physics = "none";
@@ -64,36 +64,50 @@ function draw() {
     //remove enter button
     enterButton.x = -200;
     enterButton.y = -200;
-    
+
     //bring inspo into canvas
     inspo.x = 200;
     inspo.y = 132;
 
     //bring badLight into canvas
-    badLight.x = 234;
+    badLight.x = 334;
     badLight.y = 320;
-
+  }
+  
+  if (enterButton.x == -200) {
     //player moves towards mouse
     player.pos = { x: mouseX, y: mouseY};
-      
-    //light position
-    light.pos = { x: player.x, y: mouseY};
 
+    //light position
+    light.pos = { x: player.x, y: player.y};
+
+    playScreen();
+  }
+
+  if (score == 10) {
+    clear();
+    background("black");
+    light.pos = { x: -100, y: -100};
+    player.pos = { x: -100; y: -100};
+    badlight.pos = { x: -100; y: -100};
+    inspo.pos = { x: -100; y: -100};
+
+    fill("yellow");
+    textSize(22);
+    text("You won!", 200, 100);
+
+    fill("white");
+    textSize(18);
+    text("You collected all the \nhappy smiles to make the room \nbright again, even if there \nwere dark lights in the way. \nYou had hope!",200,200);
   }
 }
 
 
 //functions
-function homeScreen() {
-
-}
-
-
 
 
 function playScreen() {
   background("black");
-
 
    //inspo visibility
    if (light.overlaps(inspo)) {
@@ -115,7 +129,7 @@ function playScreen() {
    //badLight visibility
    if (light.overlaps(badLight)) {
      print("yes");
-     setTimeout(2000); 
+     setTimeout(3000); 
      badLight.x = random(20,400);
      badLight.y = random(30,400);
 
@@ -125,13 +139,13 @@ function playScreen() {
    if (player.overlaps(badLight)) {
      lightDiameter = lightDiameter - 25;
      light.diameter = lightDiameter;
-     score = score -1 ;
+     score = score - 1;
    }
 
 
    //score indicator
    fill("yellow")
-   text("Inspo Collected: " + score,20,30);
+   text("Inspo Collected: " + score,90,30);
    textSize(18);
   }
 
