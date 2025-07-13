@@ -58,13 +58,27 @@ function draw() {
 
   if (enterButton.mouse.pressed()) {
     print("enter pressed");
+    playScreen();
     
-    background("black");
+  }
+}
+
+
+//functions
+function homeScreen() {
+ 
+}
+
+
+
+
+function playScreen() {
+  background("black");
 
     //move enter button
     enterButton.x = -200;
     enterButton.y = -200;
-    
+
 
     //bring inspo into canvas
     inspo.x = 200;
@@ -75,12 +89,12 @@ function draw() {
     badLight.y = 320;
 
     //player moves towards mouse
-    player.x = mouse.x;
-    player.y = mouse.y;
+    player.x = mouse.x
+    player.y = mouse.y
 
     //light position
-    light.x = player.x;
-    light.y = player.y;
+    light.x = player.x
+    light.y = player.y
 
     //inspo visibility
     if (light.overlaps(inspo)) {
@@ -121,17 +135,4 @@ function draw() {
     text("Inspo Collected: " + score,20,30);
     textSize(18);
   }
-}
 
-
-//functions
-function homeScreen() {
- 
-}
-
-
-
-
-function playScreen() {
-
-}
