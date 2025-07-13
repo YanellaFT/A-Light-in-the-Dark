@@ -15,13 +15,13 @@ function setup() {
   enterButton.text = "Enter";
 
   
-    player = new Sprite(-200,-200);
+    player = new Sprite(-200, -200);
     player.width = 20;
     player.height = 20;
     player.physics = "k";
     player.layer = "2";
 
-    light = new Sprite(-200,-200);
+    light = new Sprite(-20,-20);
     light.diameter = lightDiameter;
     light.color = "white";
     light.physics = "none";
@@ -41,15 +41,15 @@ function setup() {
 
   background("black");
 
+  textAlign(CENTER,CENTER);
+
   textSize(22);
   fill("Yellow");
-  text("A Light In The Dark", 135, 100);
+  text("A Light In The Dark", 200, 100);
 
   textSize(18);
   fill("white");
-  text("Find all the happy smiles to \nmake your light brighter. \nBut be carefull, there are dark lights \nhidden all over the room that \nwill limit your visibility again.",100,200);
-
-  textAlign(CENTER,CENTER)
+  text("Find all the happy smiles to \nmake your light brighter. \nBut be carefull, there are dark lights \nhidden all over the room that \nwill limit your visibility again.",200,200);
 
 }
 
@@ -58,28 +58,13 @@ function draw() {
 
   if (enterButton.mouse.pressed()) {
     print("enter pressed");
-    playScreen();
-    
-  }
-}
+    clear();
+    background("black");
 
-
-//functions
-function homeScreen() {
- 
-}
-
-
-
-
-function playScreen() {
-  background("black");
-
-    //move enter button
+    //remove enter button
     enterButton.x = -200;
     enterButton.y = -200;
-
-
+    
     //bring inspo into canvas
     inspo.x = 200;
     inspo.y = 132;
@@ -89,50 +74,64 @@ function playScreen() {
     badLight.y = 320;
 
     //player moves towards mouse
-    player.x = mouse.x
-    player.y = mouse.y
-
+    player.pos = { x: mouseX, y: mouseY};
+      
     //light position
-    light.x = player.x
-    light.y = player.y
+    light.pos = { x: player.x, y: mouseY};
 
-    //inspo visibility
-    if (light.overlaps(inspo)) {
-      inspo.color = "pink"; //if time permits add more colors
-      print("inspo")
-    } //add else statement to turn inspo to black if not overlap
-
-    //inspo collect
-    if (player.overlaps(inspo)) {
-      inspo.x = random(20,400);
-      inspo.y = random(30,400);
-      inspo.color = "black";
-      lightDiameter = lightDiameter + 25;
-      light.diameter = lightDiameter;
-      score = score + 1;
-    };
+  }
+}
 
 
-    //badLight visibility
-    if (light.overlaps(badLight)) {
-      print("yes");
-      setTimeout(2000); 
-      badLight.x = random(20,400);
-      badLight.y = random(30,400);
+//functions
+function homeScreen() {
 
-    }
-
-    //if player touches badLight
-    if (player.overlaps(badLight)) {
-      lightDiameter = lightDiameter - 25;
-      light.diameter = lightDiameter;
-      score = score -1 ;
-    }
+}
 
 
-    //score indicator
-    fill("yellow")
-    text("Inspo Collected: " + score,20,30);
-    textSize(18);
+
+
+function playScreen() {
+  background("black");
+
+
+   //inspo visibility
+   if (light.overlaps(inspo)) {
+     inspo.color = "pink"; //if time permits add more colors
+     print("inspo")
+   } //add else statement to turn inspo to black if not overlap
+
+   //inspo collect
+   if (player.overlaps(inspo)) {
+     inspo.x = random(20,400);
+     inspo.y = random(30,400);
+     inspo.color = "black";
+     lightDiameter = lightDiameter + 25;
+     light.diameter = lightDiameter;
+     score = score + 1;
+   };
+
+
+   //badLight visibility
+   if (light.overlaps(badLight)) {
+     print("yes");
+     setTimeout(2000); 
+     badLight.x = random(20,400);
+     badLight.y = random(30,400);
+
+   }
+
+   //if player touches badLight
+   if (player.overlaps(badLight)) {
+     lightDiameter = lightDiameter - 25;
+     light.diameter = lightDiameter;
+     score = score -1 ;
+   }
+
+
+   //score indicator
+   fill("yellow")
+   text("Inspo Collected: " + score,20,30);
+   textSize(18);
   }
 
