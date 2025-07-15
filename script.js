@@ -14,6 +14,9 @@ function setup() {
   enterButton.color = "#dae841"; 
   enterButton.text = "Enter";
 
+  playAgainButton = new Sprite(-200,-300,70,30);
+  playAgainButton.color = "#dae841";
+  playAgainButton.text = "Play Again";
   
     player = new Sprite(-200, -200);
     player.width = 20;
@@ -28,12 +31,14 @@ function setup() {
     light.layer = "1";
 
     inspo = new Sprite(-200,-200);
-    inspo.diameter = "20";
-    inspo.color = "black";
+    inspo.diameter = 20;
+    //inspo.image = '🙂️';
+    inspo.color = "pink";
     inspo.layer = "3";
 
     badLight = new Sprite(-200,-200);
-    badLight.diameter = "25";
+    badLight.diameter = 25;
+    //badLight.image = '🙁';
     badLight.color = "black";
     badLight.layer = "4";
     badLight.static = true;
@@ -68,6 +73,7 @@ function draw() {
     //bring inspo into canvas
     inspo.x = 200;
     inspo.y = 132;
+    inspo.visible = false;
 
     //bring badLight into canvas
     badLight.x = 334;
@@ -87,10 +93,11 @@ function draw() {
   if (score == 10) {
     clear();
     background("black");
-    light.pos = { x: -100, y: -100};
-    player.pos = { x: -100; y: -100};
-    badlight.pos = { x: -100; y: -100};
-    inspo.pos = { x: -100; y: -100};
+
+    light.pos = { x: -150, y: -100};
+    player.pos = { x: -100, y: -100};
+    badLight.pos = { x: -100, y: -100};
+    inspo.pos = { x: -100, y: -100};
 
     fill("yellow");
     textSize(22);
@@ -99,6 +106,13 @@ function draw() {
     fill("white");
     textSize(18);
     text("You collected all the \nhappy smiles to make the room \nbright again, even if there \nwere dark lights in the way. \nYou had hope!",200,200);
+
+    //show playAgainButton
+    playAgainButton.pos = { x: 200, y: 300};
+  }
+
+  if (playAgainButton.mouse.pressed) {
+    
   }
 }
 
@@ -110,16 +124,17 @@ function playScreen() {
   background("black");
 
    //inspo visibility
-   if (light.overlaps(inspo)) {
-     inspo.color = "pink"; //if time permits add more colors
+   if (light.overlaps(inspo))  {
+     inspo.visible = true;
      print("inspo")
    } //add else statement to turn inspo to black if not overlap
 
+  
    //inspo collect
    if (player.overlaps(inspo)) {
      inspo.x = random(20,400);
      inspo.y = random(30,400);
-     inspo.color = "black";
+     inspo.visible = false;
      lightDiameter = lightDiameter + 25;
      light.diameter = lightDiameter;
      score = score + 1;
@@ -149,3 +164,15 @@ function playScreen() {
    textSize(18);
   }
 
+function winScreen() {
+
+  fill("yellow");
+  textSize(22);
+  text("You won!", 200, 100);
+
+  fill("white");
+  textSize(18);
+  text("You collected all the \nhappy smiles to make the room \nbright again, even if there \nwere dark lights in the way. \nYou had hope!",200,200);
+
+
+}
