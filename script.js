@@ -84,6 +84,7 @@ function setup() {
   distractorImg.height = 30;
 
   textBackground = new Sprite(-400,-400,300,300);
+  //textBackground.layer = -1;
 
 
   background("black");
@@ -137,7 +138,7 @@ function draw() {
     playScreen();
   }
 
-  if (score == 10) {
+  if (score == 4) {
     clear();
     background(happyRoomImg);
     winScreen();
@@ -257,6 +258,7 @@ function winScreen() {
   distractor.pos = { x: -100, y: -100};
   textBackground.color = "white";
   textBackground.pos = { x: 200, y: 200};
+  textBackground.layer = -1;
   
   fill("yellow");
   textSize(22);
