@@ -14,15 +14,18 @@ let distractorImg;
 let inspoAud;
 let badLightAud;
 let happyRoomAud;
+let textBackground;
 
 
 /* PRELOAD LOADS FILES */
 function preload(){
-  inspoImg = loadImage("assets/inspo.png");
-  badLightImg = loadImage("assets/badLight.png");
+  //Images
+  inspoImg = loadImage("assets/inspo-removebg-preview.png");
+  badLightImg = loadImage("assets/badLight-removebg-preview.png");
   happyRoomImg = loadImage("assets/happyroom.png");
-  distractorImg = loadImage("assets/distractor.png");
+  distractorImg = loadImage("assets/distractor-removebg-preview.png");
 
+  //Sound
   inspoAud = loadSound("assets/inspoAud.mp3");
   badLightAud = loadSound("assets/badLightAud.mp3");
   happyRoomAud = loadSound("assets/happyRoomAud.mp3");
@@ -80,6 +83,8 @@ function setup() {
   distractorImg.width = 30;
   distractorImg.height = 30;
 
+  textBackground = new Sprite(-400,-400,300,300);
+
 
   background("black");
 
@@ -135,24 +140,7 @@ function draw() {
   if (score == 10) {
     clear();
     background(happyRoomImg);
-    //happyRoomAud.play();
-
-    light.pos = { x: -150, y: -100};
-    player.pos = { x: -100, y: -100};
-    badLight.pos = { x: -100, y: -100};
-    inspo.pos = { x: -100, y: -100};
-    distractor.pos = { x: -100, y: -100};
-
-    fill("yellow");
-    textSize(22);
-    text("You won!", 200, 100);
-
-    fill("black");
-    textSize(18);
-    text("You collected all the \nhappy smiles to make the room \nbright again, even if there \nwere frowns and other \ndistractors in the way. \nYou had hope!",200,200);
-
-    //show playAgainButton
-    playAgainButton.pos = { x: 200, y: 300};
+    winScreen();
   }
 
   if (playAgainButton.mouse.pressed()) {
@@ -173,13 +161,13 @@ function draw() {
     playAgainButton.pos = { x: -200, y: -200};
 
     clear();
+    background("black");
     playScreen();
   }
 }
 
 
 //functions
-
 
 function playScreen() {
   background("black");
@@ -188,6 +176,14 @@ function playScreen() {
    if (light.overlaps(inspo))  {
      inspo.visible = true;
      print("inspo");
+      setTimeout(() => {
+        inspo.visible = false;
+
+        inspo.x = random(20,400);
+
+        inspo.y = random(30,400);
+
+      }, 3000);
    } //add else statement to turn inspo to black if not overlap
 
   
@@ -214,7 +210,7 @@ function playScreen() {
 
        badLight.y = random(30,400);
 
-     }, 3000);
+     }, 2000);
 
    }
 
@@ -239,7 +235,7 @@ function playScreen() {
 
        distractor.y = random(30,400);
 
-     }, 3000);
+     }, 2000);
 
    }
 
@@ -252,14 +248,26 @@ function playScreen() {
 
 function winScreen() {
 
+  //happyRoomAud.play();
+
+  light.pos = { x: -150, y: -100};
+  player.pos = { x: -100, y: -100};
+  badLight.pos = { x: -100, y: -100};
+  inspo.pos = { x: -100, y: -100};
+  distractor.pos = { x: -100, y: -100};
+  textBackground.color = "white";
+  textBackground.pos = { x: 200, y: 200};
+  
   fill("yellow");
   textSize(22);
   text("You won!", 200, 100);
 
-  fill("white");
+  fill("black");
   textSize(18);
-  text("You collected all the \nhappy smiles to make the room \nbright again, even if there \nwere dark lights in the way. \nYou had hope!",200,200);
+  text("You collected all the \nhappy smiles to make the room \nbright again, even if there \nwere frowns and other \ndistractors in the way. \nYou had hope!",200,200);
 
   //show playAgainButton
   playAgainButton.pos = { x: 200, y: 300};
+
+  playAgainButton.visible = false;
 }
