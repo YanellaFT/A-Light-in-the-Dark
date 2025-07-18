@@ -251,19 +251,6 @@ function playScreen() {
      }, 2000);
    }
 
-  //if player touches distraction they freeze
-  if (player.overlaps(distractor)) {
-    distractor.visible = false;
-    print("touched");
-    setTimeout(() => {
-      player.velocity.x = 0;
-      player.velocity.y = 0;
-    }, 1000);
-    distractor.x = random(20,400);
-    distractor.y = random(300,400);
-  }
-
-
    //score indicator
    fill("yellow")
    text("Smiles Collected: " + score,90,30);
