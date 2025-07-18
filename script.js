@@ -249,6 +249,7 @@ function playScreen() {
        distractor.y = random(30,400);
 
      }, 2000);
+   }
 
   //if player touches distraction they freeze
   if (player.overlaps(distractor)) {
@@ -258,10 +259,9 @@ function playScreen() {
       player.velocity.x = 0;
       player.velocity.y = 0;
     }, 1000);
-
+    distractor.x = random(20,400);
+    distractor.y = random(300,400);
   }
-
-   }
 
 
    //score indicator
