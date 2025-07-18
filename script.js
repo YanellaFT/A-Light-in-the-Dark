@@ -15,6 +15,7 @@ let inspoAud;
 let badLightAud;
 let happyRoomAud;
 let textBackground;
+let again = false;
 
 
 /* PRELOAD LOADS FILES */
@@ -45,7 +46,7 @@ function setup() {
   player = new Sprite(-200, -200);
   player.width = 20;
   player.height = 20;
-  player.physics = "k";
+  player.physics = "kin";
   player.layer = "2";
 
   light = new Sprite(-200,-20);
@@ -78,12 +79,12 @@ function setup() {
   distractor.diameter = 30;
   distractor.layer = "5";
   distractor.static = true;
-  distractor.visibile = false;
+  distractor.visible = false;
 
   distractorImg.width = 30;
   distractorImg.height = 30;
 
-  textBackground = new Sprite(-400,-400,300,300);
+  //textBackground = new Sprite(-400,-400,300,300);
   //textBackground.layer = -1;
 
 
@@ -104,7 +105,7 @@ function setup() {
 
 function draw() {
 
-  if (enterButton.mouse.pressed()) {
+  if (enterButton.mouse.pressed() || again) {
     print("enter pressed");
     clear();
     background("black");
@@ -141,28 +142,39 @@ function draw() {
   if (score == 4) {
     clear();
     background(happyRoomImg);
+    again = false;
     winScreen();
   }
 
   if (playAgainButton.mouse.pressed()) {
+    clear();
+    background("black");   
+    again = true;
+    
     //reset game
     score = 0;
     lightDiameter = 75;
     light.diameter = lightDiameter;
-    player.pos = { x: mouseX, y: mouseY};
-    light.pos = { x: player.x, y: player.y};
-    inspo.pos = { x: 200, y: 132};
-    inspo.visible = false;
-    badLight.pos = { x: 334, y: 320};
-    badLight.visible = false;
-    distractor.pos = {x: 150, y: 180};
-    distractor.visible = false;
+
+    //bring inspo into canvas
+      inspo.x = 200;
+      inspo.y = 132;
+      inspo.visible = false;
+
+      //bring badLight into canvas
+      badLight.x = 334;
+      badLight.y = 320;
+      badLight.visible = false;
+
+      //bring in distractors
+      distractor.x = 150;
+      distractor.y = 180;
+      distractor.visible = false;
 
     //hide playAgainButton
     playAgainButton.pos = { x: -200, y: -200};
 
-    clear();
-    background("black");
+
     playScreen();
   }
 }
@@ -238,6 +250,17 @@ function playScreen() {
 
      }, 2000);
 
+  //if player touches distraction they freeze
+  if (player.overlaps(distractor)) {
+    distractor.visible = false;
+    print("touched");
+    setTimeout(() => {
+      player.velocity.x = 0;
+      player.velocity.y = 0;
+    }, 1000);
+
+  }
+
    }
 
 
@@ -256,9 +279,9 @@ function winScreen() {
   badLight.pos = { x: -100, y: -100};
   inspo.pos = { x: -100, y: -100};
   distractor.pos = { x: -100, y: -100};
-  textBackground.color = "white";
-  textBackground.pos = { x: 200, y: 200};
-  textBackground.layer = -1;
+  //textBackground.color = "white";
+  //textBackground.pos = { x: 200, y: 200};
+  //textBackground.layer = -1;
   
   fill("yellow");
   textSize(22);
@@ -271,5 +294,5 @@ function winScreen() {
   //show playAgainButton
   playAgainButton.pos = { x: 200, y: 300};
 
-  playAgainButton.visible = false;
+  //playAgainButton.visible = false;
 }
