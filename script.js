@@ -34,7 +34,7 @@ function preload(){
 
 function setup() {
   createCanvas(400,400);
-  
+
   enterButton = new Sprite(200,300,60,30);
   enterButton.color = "#dae841"; 
   enterButton.text = "Enter";
@@ -42,7 +42,7 @@ function setup() {
   playAgainButton = new Sprite(-200,-300,70,30);
   playAgainButton.color = "#dae841";
   playAgainButton.text = "Play Again";
-  
+
   player = new Sprite(-200, -200);
   player.width = 20;
   player.height = 20;
@@ -118,7 +118,7 @@ function draw() {
     //remove playAgainButton
     playAgainButton.x = -150;
     playAgainButton.y = -150;
-    
+
     //bring inspo into canvas
     inspo.x = 200;
     inspo.y = 132;
@@ -133,7 +133,7 @@ function draw() {
     distractor.y = 180;
     distractor.visible = false;
   }
-  
+
   if (enterButton.x == -200) {
     //player moves towards mouse
     player.pos = { x: mouseX, y: mouseY};
@@ -207,9 +207,7 @@ function playScreen() {
    } else {
      inspoInsideLight();
    }
-  //add else statement to turn inspo to black if not overlap
 
-  
    //inspo collect
    if (player.overlaps(inspo)) {
      inspoAud.play();
@@ -228,13 +226,11 @@ function playScreen() {
      print("yes");
      setTimeout(() => {
        badLight.visible = false;
-
        badLight.x = random(20,400);
-
        badLight.y = random(30,400);
-
      }, 2000);
-
+   } else {
+     //badLightInsideLight();
    }
 
    //if player touches badLight
@@ -253,13 +249,12 @@ function playScreen() {
      distractor.visible = true;
      setTimeout(() => {
        distractor.visible = false;
-
        distractor.x = random(20,400);
-
        distractor.y = random(30,400);
-
      }, 2000);
-   }
+   } //else {
+     //distractorInsideLight();
+   //}
 
    //score indicator
    fill("yellow")
@@ -279,7 +274,7 @@ function winScreen() {
   //textBackground.color = "white";
   //textBackground.pos = { x: 200, y: 200};
   //textBackground.layer = -1;
-  
+
   fill("yellow");
   textSize(22);
   text("You won!", 200, 100);
@@ -295,8 +290,19 @@ function winScreen() {
 }
 
 function inspoInsideLight() {
-  const inspoDistance = Math.sqrt(Math.pow(inspoX - lightX, 2) + Math pow(inspoY - lightY, 2));
-  if (inspoDistance => lightDiameter) {
+  const inspoDistance = Math.sqrt(Math.pow(inspo.x - light.x, 2) + Math.pow(inspo.y - light.y, 2));
+  if (inspoDistance >= lightDiameter) {
     inspo.visible = false;
   }
+}
+
+function badLightInsideLight() {
+  const badLightDistance = Math.sqrt(Math.pow(badLight.x - light.y, 2) + Math.pow(badLight.y - light.y, 2));
+  if (badLightDistance >= lightDiameter) {
+    badLight.visible = false;
+  }
+}
+
+function distractorInsideLight() {
+  //const distractor
 }
