@@ -16,7 +16,6 @@ let badLightAud;
 let happyRoomAud;
 let textBackground;
 let again = false;
-let playerFrozen = false;
 
 
 /* PRELOAD LOADS FILES */
@@ -106,15 +105,20 @@ function setup() {
 
 function draw() {
 
-  if (enterButton.mouse.pressed() || again) {
+  if (enterButton.mouse.pressed() || again == true) {
     print("enter pressed");
     clear();
     background("black");
+    again = false;
 
     //remove enter button
     enterButton.x = -200;
     enterButton.y = -200;
 
+    //remove playAgainButton
+    playAgainButton.x = -150;
+    playAgainButton.y = -150;
+    
     //bring inspo into canvas
     inspo.x = 200;
     inspo.y = 132;
@@ -131,10 +135,8 @@ function draw() {
   }
   
   if (enterButton.x == -200) {
-    //player moves towards mouse (only if not frozen)
-    if (!playerFrozen) {
-      player.pos = { x: mouseX, y: mouseY};
-    }
+    //player moves towards mouse
+    player.pos = { x: mouseX, y: mouseY};
 
     //light position
     light.pos = { x: player.x, y: player.y};
@@ -153,7 +155,8 @@ function draw() {
     clear();
     background("black");   
     again = true;
-    
+    //happyRoomAud.stop();
+
     //reset game
     score = 0;
     lightDiameter = 75;
@@ -161,19 +164,19 @@ function draw() {
     playerFrozen = false;
 
     //bring inspo into canvas
-      inspo.x = 200;
-      inspo.y = 132;
-      inspo.visible = false;
+    inspo.x = 200;
+    inspo.y = 132;
+    inspo.visible = false;
 
-      //bring badLight into canvas
-      badLight.x = 334;
-      badLight.y = 320;
-      badLight.visible = false;
+    //bring badLight into canvas
+    badLight.x = 334;
+    badLight.y = 320;
+    badLight.visible = false;
 
-      //bring in distractors
-      distractor.x = 150;
-      distractor.y = 180;
-      distractor.visible = false;
+    //bring in distractors
+    distractor.x = 150;
+    distractor.y = 180;
+    distractor.visible = false;
 
     //hide playAgainButton
     playAgainButton.pos = { x: -200, y: -200};
@@ -201,7 +204,10 @@ function playScreen() {
         inspo.y = random(30,400);
 
       }, 3000);
-   } //add else statement to turn inspo to black if not overlap
+   } else {
+     inspoInsideLight();
+   }
+  //add else statement to turn inspo to black if not overlap
 
   
    //inspo collect
@@ -255,17 +261,6 @@ function playScreen() {
      }, 2000);
    }
 
-   //if player touches distractor
-   if (player.overlaps(distractor)) {
-     playerFrozen = true;
-     distractor.visible = false;
-     distractor.x = random(20,400);
-     distractor.y = random(30,400);
-     setTimeout(() => {
-       playerFrozen = false;
-     }, 1000);
-   }
-
    //score indicator
    fill("yellow")
    text("Smiles Collected: " + score,90,30);
@@ -297,4 +292,11 @@ function winScreen() {
   playAgainButton.pos = { x: 200, y: 300};
 
   //playAgainButton.visible = false;
+}
+
+function inspoInsideLight() {
+  const inspoDistance = Math.sqrt(Math.pow(inspoX - lightX, 2) + Math pow(inspoY - lightY, 2));
+  if (inspoDistance => lightDiameter) {
+    inspo.visible = false;
+  }
 }
