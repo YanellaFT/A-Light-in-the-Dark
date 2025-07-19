@@ -16,6 +16,7 @@ let badLightAud;
 let happyRoomAud;
 let textBackground;
 let again = false;
+let playerFrozen = false;
 
 
 /* PRELOAD LOADS FILES */
@@ -130,8 +131,10 @@ function draw() {
   }
   
   if (enterButton.x == -200) {
-    //player moves towards mouse
-    player.pos = { x: mouseX, y: mouseY};
+    //player moves towards mouse (only if not frozen)
+    if (!playerFrozen) {
+      player.pos = { x: mouseX, y: mouseY};
+    }
 
     //light position
     light.pos = { x: player.x, y: player.y};
@@ -155,6 +158,7 @@ function draw() {
     score = 0;
     lightDiameter = 75;
     light.diameter = lightDiameter;
+    playerFrozen = false;
 
     //bring inspo into canvas
       inspo.x = 200;
@@ -249,6 +253,17 @@ function playScreen() {
        distractor.y = random(30,400);
 
      }, 2000);
+   }
+
+   //if player touches distractor
+   if (player.overlaps(distractor)) {
+     playerFrozen = true;
+     distractor.visible = false;
+     distractor.x = random(20,400);
+     distractor.y = random(30,400);
+     setTimeout(() => {
+       playerFrozen = false;
+     }, 1000);
    }
 
    //score indicator
