@@ -144,7 +144,7 @@ function draw() {
     playScreen();
   }
 
-  if (score == 4) {
+  if (score == 10) {
     clear();
     background(happyRoomImg);
     again = false;
