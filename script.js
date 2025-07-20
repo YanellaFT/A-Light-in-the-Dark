@@ -110,14 +110,9 @@ function setup() {
   textBackground.layer = "-1";
   textBackground.static = true;
 
-  roomBeg = new Sprite(200,200,400,400);
+ 
   tint(25);
-  roomBeg.image = roomImg;
-  roomBeg.static = true;
-  roomBeg.visible = true;
-  roomBeg.layer = "-2";
-
-  background("black");
+  background(roomImg);
   
   textAlign(CENTER,CENTER);
   
@@ -134,6 +129,7 @@ function setup() {
 
 function draw() {
 
+
   if (enterButton.mouse.pressed() || again == true) {
     print("enter pressed");
     clear();
@@ -148,10 +144,7 @@ function draw() {
     playAgainButton.x = -150;
     playAgainButton.y = -150;
 
-    //remove roomBeg
-    roomBeg.x = -1000;
-    roomBeg.y = -1000;
-
+    tint(255);
     //bring inspo into canvas
     inspo.x = 200;
     inspo.y = 132;
