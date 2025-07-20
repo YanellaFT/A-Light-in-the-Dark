@@ -16,13 +16,13 @@ let distractorImg;
 let inspoAud;
 let badLightAud;
 let happyRoomAud;
-let textBackground;
 let again = false;
 let inspoDistance;
 let badLightDistance;
 let distractorDistance;
 let extraDistance;
 let roomImg;
+let winImg;
 
 
 /* PRELOAD LOADS FILES */
@@ -34,6 +34,7 @@ function preload(){
   distractorImg = loadImage("assets/distractor-removebg-preview.png");
   extraImg = loadImage("assets/extra-removebg-preview.png");
   roomImg = loadImage("assets/happyroom.png");
+  winImg = loadImage("assets/winscreenback.png");
 
   //Sound
   inspoAud = loadSound("assets/inspoAud.mp3");
@@ -105,10 +106,6 @@ function setup() {
 
   extraImg.width = 15;
   extraImg.height = 15;
-  
-  textBackground = new Sprite(-400,-400,300,300);
-  textBackground.layer = "-1";
-  textBackground.static = true;
 
  
   tint(25);
@@ -175,9 +172,9 @@ function draw() {
     playScreen();
   }
 
-  if (score == 4) {
+  if (score == 10) {
     clear();
-    background(happyRoomImg);
+    background(winImg);
     again = false;
     winScreen();
   }
@@ -215,9 +212,7 @@ function draw() {
 
     //hide playAgainButton
     playAgainButton.pos = { x: -200, y: -200};
-
-    //hide textBackgorund
-    textBackground.pos = { x: -200, y: -200};
+    
 
     playScreen();
   }
@@ -333,11 +328,6 @@ function winScreen() {
   inspo.pos = { x: -100, y: -100};
   distractor.pos = { x: -100, y: -100};
   extra.pos = { x: -100, y: -100};
-
-  
-  textBackground.pos = { x: 200, y: 200};
-  textBackground.layer = "-1";
-  textBackground.color = color(255,255,255,150);
   
   fill("yellow");
   textSize(22);
