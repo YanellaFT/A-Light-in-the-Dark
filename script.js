@@ -18,6 +18,10 @@ let badLightAud;
 let happyRoomAud;
 let textBackground;
 let again = false;
+let inspoDistance;
+let badLightDistance;
+let distractorDistance;
+let extraDistance;
 
 
 /* PRELOAD LOADS FILES */
