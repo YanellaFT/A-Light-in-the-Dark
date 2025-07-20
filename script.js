@@ -33,6 +33,7 @@ function preload(){
   inspoAud = loadSound("assets/inspoAud.mp3");
   badLightAud = loadSound("assets/badLightAud.mp3");
   happyRoomAud = loadSound("assets/happyRoomAud.mp3");
+  extraAud = loadSound("assets/extraAud.mp3");
 }
 
 function setup() {
@@ -283,20 +284,20 @@ function playScreen() {
         extra.visible = false;
         extra.x = random(20,400);
         extra.y = random(30,400);
-      }, 1000);
+      }, 900);
    } else {
      extraInsideLight();
    }
 
    //if player touches extra
    if (player.overlaps(extra)) {
-     //extraAud.play();
+     extraAud.play();
      extra.visible = false;
      lightDiameter = lightDiameter + 50;
      light.diameter = lightDiameter;
      if (score <= 8) {
        score = score + 2;
-     } else {
+     } else if (score > 8) {
        score = score + 1;
      }
      extra.x = random(20,400);
