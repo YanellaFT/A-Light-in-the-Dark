@@ -102,15 +102,16 @@ function setup() {
 
   extraImg.width = 15;
   extraImg.height = 15;
-
-  //textBackground = new Sprite(-400,-400,300,300);
-  //textBackground.layer = -1;
+  
+  fill(255,255,255,100);
+  textBackground = new Sprite(-400,-400,300,300);
+  textBackground.layer = "-1";
 
 
   background("black");
-
+  
   textAlign(CENTER,CENTER);
-
+  
   textSize(22);
   fill("Yellow");
   text("A Light In The Dark", 200, 100);
@@ -168,7 +169,7 @@ function draw() {
     playScreen();
   }
 
-  if (score == 10) {
+  if (score == 4) {
     clear();
     background(happyRoomImg);
     again = false;
@@ -299,9 +300,9 @@ function playScreen() {
      extra.visible = false;
      lightDiameter = lightDiameter + 50;
      light.diameter = lightDiameter;
-     if (score <= 8) {
+     if (score <= 2) {
        score = score + 2;
-     } else if (score > 8) {
+     } else if (score > 2) {
        score = score + 1;
      }
      extra.x = random(20,400);
@@ -325,8 +326,11 @@ function winScreen() {
   distractor.pos = { x: -100, y: -100};
   extra.pos = { x: -100, y: -100};
   //textBackground.color = "white";
-  //textBackground.pos = { x: 200, y: 200};
-  //textBackground.layer = -1;
+  fill(255,255,255,100);
+  textBackground.pos = { x: 200, y: 200};
+  textBackground.layer = "-1";
+  textBackground.text = 
+  
 
   fill("yellow");
   textSize(22);
@@ -335,6 +339,7 @@ function winScreen() {
   fill("black");
   textSize(18);
   text("You collected all the \nhappy smiles to make the room \nbright again, even if there \nwere frowns and other \ndistractors in the way. \nYou had hope!",200,200);
+  
 
   //show playAgainButton
   playAgainButton.pos = { x: 200, y: 300};
@@ -343,28 +348,28 @@ function winScreen() {
 }
 
 function inspoInsideLight() {
-  const inspoDistance = Math.sqrt(Math.pow(inspo.x - light.x, 2) + Math.pow(inspo.y - light.y, 2));
+  inspoDistance = Math.sqrt(Math.pow(inspo.x - light.x, 2) + Math.pow(inspo.y - light.y, 2));
   if (inspoDistance >= lightDiameter) {
     inspo.visible = false;
   }
 }
 
 function badLightInsideLight() {
-  const badLightDistance = Math.sqrt(Math.pow(badLight.x - light.x, 2) + Math.pow(badLight.y - light.y, 2));
+  badLightDistance = Math.sqrt(Math.pow(badLight.x - light.x, 2) + Math.pow(badLight.y - light.y, 2));
   if (badLightDistance >= lightDiameter) {
     badLight.visible = false;
   }
 }
 
 function distractorInsideLight() {
-  const distractorDistance = Math.sqrt(Math.pow(distractor.x - light.x, 2) + Math.pow(distractor.y - light.y, 2));
+  distractorDistance = Math.sqrt(Math.pow(distractor.x - light.x, 2) + Math.pow(distractor.y - light.y, 2));
   if (distractorDistance >= lightDiameter) {
     distractor.visible = false;
   }
 }
 
 function extraInsideLight() {
-  const extraDistance = Math.sqrt(Math.pow(extra.x - light.x, 2) + Math.pow(extra.y - light.y, 2));
+  extraDistance = Math.sqrt(Math.pow(extra.x - light.x, 2) + Math.pow(extra.y - light.y, 2));
   if (extraDistance >= lightDiameter) {
     extra.visible = false;
   }
