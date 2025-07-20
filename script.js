@@ -45,6 +45,7 @@ function setup() {
   playAgainButton = new Sprite(-200,-300,70,30);
   playAgainButton.color = "#dae841";
   playAgainButton.text = "Play Again";
+  playAgainButton.static = true;
 
   player = new Sprite(-200, -200);
   player.width = 20;
@@ -149,6 +150,7 @@ function draw() {
     //bring extra into canvas
     extra.x = 100;
     extra.y = 250;
+    extra.visible = false;
   }
 
   if (enterButton.x == -200) {
@@ -178,7 +180,6 @@ function draw() {
     score = 0;
     lightDiameter = 75;
     light.diameter = lightDiameter;
-    playerFrozen = false;
 
     //bring inspo into canvas
     inspo.x = 200;
@@ -198,11 +199,12 @@ function draw() {
     //bring extra into canvas
     extra.x = 100;
     extra.y = 250;
+    extra.visible = false;
 
     //hide playAgainButton
     playAgainButton.pos = { x: -200, y: -200};
 
-
+    
     playScreen();
   }
 }
@@ -275,13 +277,13 @@ function playScreen() {
    }
 
    //extra visibility
-   if (light.overlaps(extra))  {
+   if (light.overlaps(extra)) {
      extra.visible = true;
       setTimeout(() => {
         extra.visible = false;
         extra.x = random(20,400);
         extra.y = random(30,400);
-      }, 3000);
+      }, 1000);
    } else {
      extraInsideLight();
    }
@@ -294,7 +296,7 @@ function playScreen() {
      light.diameter = lightDiameter;
      if (score <= 8) {
        score = score + 2;
-     } else if (score >= 8) {
+     } else {
        score = score + 1;
      }
      extra.x = random(20,400);
@@ -316,6 +318,7 @@ function winScreen() {
   badLight.pos = { x: -100, y: -100};
   inspo.pos = { x: -100, y: -100};
   distractor.pos = { x: -100, y: -100};
+  extra.pos = { x: -100, y: -100};
   //textBackground.color = "white";
   //textBackground.pos = { x: 200, y: 200};
   //textBackground.layer = -1;
