@@ -22,6 +22,7 @@ let inspoDistance;
 let badLightDistance;
 let distractorDistance;
 let extraDistance;
+let roomImg;
 
 
 /* PRELOAD LOADS FILES */
@@ -32,6 +33,7 @@ function preload(){
   happyRoomImg = loadImage("assets/happyroom.png");
   distractorImg = loadImage("assets/distractor-removebg-preview.png");
   extraImg = loadImage("assets/extra-removebg-preview.png");
+  roomImg = loadImage("assets/happyroom.png");
 
   //Sound
   inspoAud = loadSound("assets/inspoAud.mp3");
@@ -46,6 +48,7 @@ function setup() {
   enterButton = new Sprite(200,300,60,30);
   enterButton.color = "#dae841"; 
   enterButton.text = "Enter";
+  enterButton.static = true;
 
   playAgainButton = new Sprite(-200,-300,70,30);
   playAgainButton.color = "#dae841";
@@ -107,6 +110,13 @@ function setup() {
   textBackground.layer = "-1";
   textBackground.static = true;
 
+  roomBeg = new Sprite(200,200,400,400);
+  tint(25);
+  roomBeg.image = roomImg;
+  roomBeg.static = true;
+  roomBeg.visible = true;
+  roomBeg.layer = "-2";
+
   background("black");
   
   textAlign(CENTER,CENTER);
@@ -137,6 +147,10 @@ function draw() {
     //remove playAgainButton
     playAgainButton.x = -150;
     playAgainButton.y = -150;
+
+    //remove roomBeg
+    roomBeg.x = -1000;
+    roomBeg.y = -1000;
 
     //bring inspo into canvas
     inspo.x = 200;
@@ -330,9 +344,8 @@ function winScreen() {
   
   textBackground.pos = { x: 200, y: 200};
   textBackground.layer = "-1";
-  //textBackground.text = 
   textBackground.color = color(255,255,255,150);
-
+  
   fill("yellow");
   textSize(22);
   text("You won!", 200, 100);
