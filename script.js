@@ -103,10 +103,9 @@ function setup() {
   extraImg.width = 15;
   extraImg.height = 15;
   
-  fill(255,255,255,100);
   textBackground = new Sprite(-400,-400,300,300);
   textBackground.layer = "-1";
-
+  textBackground.static = true;
 
   background("black");
   
@@ -210,7 +209,9 @@ function draw() {
     //hide playAgainButton
     playAgainButton.pos = { x: -200, y: -200};
 
-    
+    //hide textBackgorund
+    textBackground.pos = { x: -200, y: -200};
+
     playScreen();
   }
 }
@@ -325,12 +326,12 @@ function winScreen() {
   inspo.pos = { x: -100, y: -100};
   distractor.pos = { x: -100, y: -100};
   extra.pos = { x: -100, y: -100};
-  //textBackground.color = "white";
-  fill(255,255,255,100);
+
+  
   textBackground.pos = { x: 200, y: 200};
   textBackground.layer = "-1";
-  textBackground.text = 
-  
+  //textBackground.text = 
+  textBackground.color = color(255,255,255,150);
 
   fill("yellow");
   textSize(22);
@@ -344,7 +345,6 @@ function winScreen() {
   //show playAgainButton
   playAgainButton.pos = { x: 200, y: 300};
 
-  //playAgainButton.visible = false;
 }
 
 function inspoInsideLight() {
