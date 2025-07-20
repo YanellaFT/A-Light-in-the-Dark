@@ -7,6 +7,8 @@ let player;
 let light;
 let badLight;
 let inspo;
+let extra;
+let extraImg;
 let inspoImg;
 let badLightImg;
 let happyRoomImg;
@@ -25,6 +27,7 @@ function preload(){
   badLightImg = loadImage("assets/badLight-removebg-preview.png");
   happyRoomImg = loadImage("assets/happyroom.png");
   distractorImg = loadImage("assets/distractor-removebg-preview.png");
+  extraImg = loadImage("assets/extra-removebg-preview.png");
 
   //Sound
   inspoAud = loadSound("assets/inspoAud.mp3");
@@ -84,6 +87,16 @@ function setup() {
   distractorImg.width = 30;
   distractorImg.height = 30;
 
+  extra = new Sprite(-200,-200);
+  extra.image = extraImg;
+  extra.diameter = 15;
+  extra.layer = "6";
+  extra.static = true;
+  extra.visible = false;
+
+  extraImg.width = 15;
+  extraImg.height = 15;
+
   //textBackground = new Sprite(-400,-400,300,300);
   //textBackground.layer = -1;
 
@@ -132,6 +145,10 @@ function draw() {
     distractor.x = 150;
     distractor.y = 180;
     distractor.visible = false;
+
+    //bring extra into canvas
+    extra.x = 100;
+    extra.y = 250;
   }
 
   if (enterButton.x == -200) {
@@ -178,6 +195,10 @@ function draw() {
     distractor.y = 180;
     distractor.visible = false;
 
+    //bring extra into canvas
+    extra.x = 100;
+    extra.y = 250;
+
     //hide playAgainButton
     playAgainButton.pos = { x: -200, y: -200};
 
@@ -198,11 +219,8 @@ function playScreen() {
      print("inspo");
       setTimeout(() => {
         inspo.visible = false;
-
         inspo.x = random(20,400);
-
         inspo.y = random(30,400);
-
       }, 3000);
    } else {
      inspoInsideLight();
@@ -256,6 +274,33 @@ function playScreen() {
      distractorInsideLight();
    }
 
+   //extra visibility
+   if (light.overlaps(extra))  {
+     extra.visible = true;
+      setTimeout(() => {
+        extra.visible = false;
+        extra.x = random(20,400);
+        extra.y = random(30,400);
+      }, 3000);
+   } else {
+     extraInsideLight();
+   }
+
+   //if player touches extra
+   if (player.overlaps(extra)) {
+     //extraAud.play();
+     extra.visible = false;
+     lightDiameter = lightDiameter + 50;
+     light.diameter = lightDiameter;
+     if (score <= 8) {
+       score = score + 2;
+     } else if (score >= 8) {
+       score = score + 1;
+     }
+     extra.x = random(20,400);
+     extra.y = random(30,400);
+   }
+
    //score indicator
    fill("yellow")
    text("Smiles Collected: " + score,90,30);
@@ -307,5 +352,12 @@ function distractorInsideLight() {
   const distractorDistance = Math.sqrt(Math.pow(distractor.x - light.x, 2) + Math.pow(distractor.y - light.y, 2));
   if (distractorDistance >= lightDiameter) {
     distractor.visible = false;
+  }
+}
+
+function extraInsideLight() {
+  const extraDistance = Math.sqrt(Math.pow(extra.x - light.x, 2) + Math.pow(extra.y - light.y, 2));
+  if (extraDistance >= lightDiameter) {
+    extra.visible = false;
   }
 }
