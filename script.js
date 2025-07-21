@@ -17,10 +17,6 @@ let inspoAud;
 let badLightAud;
 let happyRoomAud;
 let again = false;
-let inspoDistance;
-let badLightDistance;
-let distractorDistance;
-let extraDistance;
 let roomImg;
 let winImg;
 
@@ -233,8 +229,6 @@ function playScreen() {
         inspo.x = random(20,400);
         inspo.y = random(30,400);
       }, 3000);
-   } else {
-     inspoInsideLight();
    }
 
    //inspo collect
@@ -258,8 +252,6 @@ function playScreen() {
        badLight.x = random(20,400);
        badLight.y = random(30,400);
      }, 2000);
-   } else {
-     badLightInsideLight();
    }
 
    //if player touches badLight
@@ -281,8 +273,6 @@ function playScreen() {
        distractor.x = random(20,400);
        distractor.y = random(30,400);
      }, 2000);
-   } else {
-     distractorInsideLight();
    }
 
    //extra visibility
@@ -293,9 +283,7 @@ function playScreen() {
         extra.x = random(20,400);
         extra.y = random(30,400);
       }, 900);
-   } else {
-     extraInsideLight();
-   }
+   } 
 
    //if player touches extra
    if (player.overlaps(extra)) {
@@ -342,33 +330,3 @@ function winScreen() {
   playAgainButton.pos = { x: 200, y: 300};
 
 }
-
-function inspoInsideLight() {
-  inspoDistance = Math.sqrt(Math.pow(inspo.x - light.x, 2) + Math.pow(inspo.y - light.y, 2));
-  if (inspoDistance >= lightDiameter) {
-    inspo.visible = false;
-  }
-}
-
-function badLightInsideLight() {
-  badLightDistance = Math.sqrt(Math.pow(badLight.x - light.x, 2) + Math.pow(badLight.y - light.y, 2));
-  if (badLightDistance >= lightDiameter) {
-    badLight.visible = false;
-  }
-}
-
-function distractorInsideLight() {
-  distractorDistance = Math.sqrt(Math.pow(distractor.x - light.x, 2) + Math.pow(distractor.y - light.y, 2));
-  if (distractorDistance >= lightDiameter) {
-    distractor.visible = false;
-  }
-}
-
-function extraInsideLight() {
-  extraDistance = Math.sqrt(Math.pow(extra.x - light.x, 2) + Math.pow(extra.y - light.y, 2));
-  if (extraDistance >= lightDiameter) {
-    extra.visible = false;
-  }
-}
-
-//fix all the __InsideLight functions so that the faces.visible = false when outside the light. 
