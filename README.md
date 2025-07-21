@@ -1,5 +1,5 @@
 # A Light In The Dark
-This project was inspired by the GWC 2025 SIP Game Jam prompt "what gives you hope".
+This pgame is called "A Light In the Dark". This project was inspired by the GWC 2025 SIP Game Jam prompt "what gives you hope".
 For me, the saying "a light in the dark" often is used to represent hope, and to keep going no matter what.
 
 In this game, the player has to collect all the happy smiles to increase their light and make the room bright again. There are obstacles in the way that will dim the light and prevent the player from reaching the desired score. The player has to have hope and believe in themselves to collect all the rapidly moving smiles and stay clear of the fast moving frowns to increase their light and make their room bright again.
