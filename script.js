@@ -303,9 +303,9 @@ function playScreen() {
      extra.visible = false;
      lightDiameter = lightDiameter + 50;
      light.diameter = lightDiameter;
-     if (score <= 2) {
+     if (score <= 8) {
        score = score + 2;
-     } else if (score > 2) {
+     } else if (score > 8) {
        score = score + 1;
      }
      extra.x = random(20,400);
@@ -370,3 +370,5 @@ function extraInsideLight() {
     extra.visible = false;
   }
 }
+
+//fix all the __InsideLight functions so that the faces.visible = false when outside the light. 
